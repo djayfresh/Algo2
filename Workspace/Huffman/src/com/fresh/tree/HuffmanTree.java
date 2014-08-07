@@ -62,18 +62,6 @@ public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
 		int compared = data.compareTo(node.data);
 		if(compared > 0)
 		{
-			if(node.getLeft() == null)
-			{
-				node.setLeft(new BinaryNode<T>(data, node));
-				return true;
-			}
-			else
-			{
-				insert(node.getLeft(), data);
-			}
-		}
-		if(compared < 0)
-		{
 			if(node.getRight() == null)
 			{
 				node.setRight(new BinaryNode<T>(data, node));
@@ -84,12 +72,24 @@ public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
 				insert(node.getRight(), data);
 			}
 		}
+		if(compared < 0)
+		{
+			if(node.getLeft() == null)
+			{
+				node.setLeft(new BinaryNode<T>(data, node));
+				return true;
+			}
+			else
+			{
+				insert(node.getLeft(), data);
+			}
+		}
 		return false;
 	}
 	
 	private boolean insert(BinaryNode<T> node, BinaryNode<T> parent, T data)
 	{
-		if(parent == null)
+		if(root == null)
 		{
 			root = new BinaryNode<T>(data, null);
 			return true;
@@ -99,13 +99,13 @@ public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
 			int compared = data.compareTo(parent.data);
 			if(compared > 0)
 			{
-				parent.setLeft(new BinaryNode<T>(data, parent));
+				parent.setRight(new BinaryNode<T>(data, parent));
 				return true;
 			}
 
 			if(compared < 0)
 			{
-				parent.setRight(new BinaryNode<T>(data, parent));
+				parent.setLeft(new BinaryNode<T>(data, parent));
 				return true;
 			}
 		}
@@ -114,11 +114,11 @@ public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
 			int compared = data.compareTo(node.data);
 			if(compared > 0)
 			{
-				insert(node.getLeft(), node, data);
+				insert(node.getRight(), node, data);
 			}
 			if(compared < 0)
 			{
-				insert(node.getRight(), node, data);
+				insert(node.getLeft(), node, data);
 			}
 		}
 		return false;
@@ -139,11 +139,13 @@ public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
 	@Override
 	public void clear()
 	{
+		root = null;
 	}
 
 	@Override
 	public void rebalance()
 	{
+		
 	}
 
 	@Override

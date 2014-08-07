@@ -17,7 +17,15 @@ public class HuffmanTeset
 		bytes[0] = 0;
 		HuffmanTree<Integer> tree = new HuffmanTree<Integer>(bytes);
 		tree.insert(3);
-		System.out.println(tree.root.data);
+		System.out.println("Root: " + tree.root.data);
+		tree.add(1);
+		System.out.println("Left: " + tree.root.getLeft().data);
+		tree.insert(4);
+		System.out.println("Right: " + tree.root.getRight().data);
+		tree.add(5);
+		System.out.println("Right - Right: " + tree.root.getRight().getRight().data);
+		tree.add(2);
+		System.out.println("Left - Right: " + tree.root.getLeft().getRight().data);
 	}
 
 }
