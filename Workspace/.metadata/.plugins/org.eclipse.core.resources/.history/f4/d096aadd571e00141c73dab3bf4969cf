@@ -1,0 +1,22 @@
+package com.fresh.tree;
+
+import java.util.List;
+
+public abstract class Tree<T extends Comparable<T>> {
+	
+	public abstract void add(T obj);
+	public abstract void delete(T obj);
+	public abstract void insert(T obj);
+	public abstract int height();
+	public abstract int levels();
+	public abstract void clear();
+	public abstract void rebalance();
+	public abstract List<T> ancestors(T obj);
+	public abstract boolean contains(T obj);
+	public abstract void remove(T obj);
+	public abstract int size();
+	public abstract List<T> preorder();
+	public abstract List<T> postorder();
+	public abstract List<T> inorder();
+	
+}

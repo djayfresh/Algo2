@@ -1,6 +1,6 @@
 package com.fresh.tree;
 
-public class Node<T>
+public class Node<T extends Comparable<T>>
 {
 	Node<T> child;
 	Node<T> parent;

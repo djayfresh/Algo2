@@ -1,39 +1,39 @@
 package com.fresh.tree;
 
-public class BinaryNode<T>
+public class BinaryNode<T extends Comparable<T> >
 {
-	Node<T> left;
-	Node<T> right;
-	Node<T> parent;
-	T data;
+	BinaryNode<T> left;
+	BinaryNode<T> right;
+	BinaryNode<T> parent;
+	public T data;
 
-	public BinaryNode(T data, Node<T> parent)
+	public BinaryNode(T data, BinaryNode<T> parent)
 	{
 		this.parent = parent;
 		this.data = data;
 	}
 
-	public void setLeft(Node<T> child)
+	public void setLeft(BinaryNode<T> child)
 	{
 		this.left = child;
 	}
 
-	public void setRight(Node<T> child)
+	public void setRight(BinaryNode<T> child)
 	{
 		this.right = child;
 	}
 
-	public Node<T> getLeft()
+	public BinaryNode<T> getLeft()
 	{
 		return left;
 	}
 
-	public Node<T> getRight()
+	public BinaryNode<T> getRight()
 	{
 		return right;
 	}
 
-	public Node<T> getParent()
+	public BinaryNode<T> getParent()
 	{
 		return parent;
 	}

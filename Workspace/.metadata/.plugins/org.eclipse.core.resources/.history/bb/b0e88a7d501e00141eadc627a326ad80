@@ -1,0 +1,15 @@
+package com.fresh.tree;
+
+public class HuffmanTree<T>
+{
+	BinaryNode<T> root;
+	public HuffmanTree(Byte[] bytes)
+	{
+		constructTree(bytes);
+	}
+	
+	private void constructTree(Byte[] bytes)
+	{
+		
+	}
+}

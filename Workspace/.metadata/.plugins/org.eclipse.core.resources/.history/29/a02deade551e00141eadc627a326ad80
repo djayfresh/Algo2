@@ -1,0 +1,130 @@
+package com.fresh.tree;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class HuffmanTree<T extends Comparable<T> >
+{
+	BinaryNode<T> root;
+	public HuffmanTree(Byte[] bytes)
+	{
+		constructTree(bytes);
+	}
+	
+	private void constructTree(Byte[] bytes)
+	{
+		Map<Byte, Integer> total = new HashMap<Byte, Integer>();
+		
+		for(int i = 0; i < bytes.length; i++)
+		{
+			int count = 0;
+			for(int c = 0; c < bytes.length; c++)
+			{
+				if(bytes[i] == bytes[c])
+				{
+					count++;
+				}
+			}
+			int value = 0;
+			Integer intValue = total.get(bytes[i]);
+			if(intValue != null)
+			{
+				value = intValue.intValue();
+			}
+			total.put(bytes[i], count + value);
+		}
+		int keyCount = total.keySet().size();
+		for(int k = 0; k < keyCount; k++)
+		{
+			
+			
+		}
+	}
+	
+	public void insert(T data)
+	{
+		insert(root, data);
+	}
+	
+	private void insert(BinaryNode<T> node, T data)
+	{
+		if(root == null)
+		{
+			root = new BinaryNode<T>(data, null);
+		}
+		else if(node == null)
+		{
+			return;
+		}
+		int compared = data.compareTo(node.data);
+		if(compared > 0)
+		{
+			if(node.getLeft() == null)
+			{
+				node.setLeft(new BinaryNode<T>(data, node));
+			}
+			else
+			{
+				insert(node.getLeft(), data);
+			}
+		}
+		if(compared < 0)
+		{
+			if(node.getRight() == null)
+			{
+				node.setRight(new BinaryNode<T>(data, node));
+			}
+			else
+			{
+				insert(node.getRight(), data);
+			}
+		}
+	}
+	
+	private void insert(BinaryNode<T> node, BinaryNode<T> parent, T data)
+	{
+		if(parent == null)
+		{
+			root = new BinaryNode<T>(data, null);
+		}
+		else if(node == null)
+		{
+			int compared = data.compareTo(parent.data);
+			if(compared > 0)
+			{
+				
+			}
+
+			if(compared < 0)
+			{
+				
+			}
+		}
+		else
+		{
+		int compared = data.compareTo(node.data);
+		if(compared > 0)
+		{
+			if(node.getLeft() == null)
+			{
+				node.setLeft(new BinaryNode<T>(data, node));
+			}
+			else
+			{
+				insert(node.getLeft(), node, data);
+			}
+		}
+		if(compared < 0)
+		{
+			if(node.getRight() == null)
+			{
+				node.setRight(new BinaryNode<T>(data, node));
+			}
+			else
+			{
+				insert(node.getRight(), node, data);
+			}
+		}
+	}
+}

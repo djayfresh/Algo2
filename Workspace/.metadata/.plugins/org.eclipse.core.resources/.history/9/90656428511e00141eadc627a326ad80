@@ -1,0 +1,30 @@
+package com.fresh.tree;
+
+import java.util.Dictionary;
+
+public class HuffmanTree<T>
+{
+	BinaryNode<T> root;
+	public HuffmanTree(Byte[] bytes)
+	{
+		constructTree(bytes);
+	}
+	
+	private void constructTree(Byte[] bytes)
+	{
+		Dictionary<Byte, Integer> total = new Dictionary<Byte, Integer>();
+		
+		for(int i = 0; i < bytes.length; i++)
+		{
+			int count = 0;
+			for(int c = 0; c < bytes.length; c++)
+			{
+				if(bytes[i] == bytes[c])
+				{
+					count++;
+				}
+			}
+			
+		}
+	}
+}
