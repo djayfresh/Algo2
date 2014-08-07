@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+D:\Dropbox\Dropbox\School\Semester12\Algo 2\Git\Algo2\Workspace\.metadata\.plugins\org.eclipse.jdt.core
+3581737588.index
