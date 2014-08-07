@@ -6,10 +6,9 @@ public class Node<T>
 	Node<T> parent;
 	T data;
 	
-	public Node(Node<T> parent, T data)
+	public Node(Node<T> parent)
 	{
 		this.parent = parent;
-		this.data = data;
 	}
 	
 	public void setChild(Node<T> child)
