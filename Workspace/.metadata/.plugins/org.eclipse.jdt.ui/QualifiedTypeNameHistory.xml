@@ -5,4 +5,6 @@
 <fullyQualifiedTypeName name="com.fresh.tree.BinaryNode"/>
 <fullyQualifiedTypeName name="com.fresh.tree.HuffmanTree"/>
 <fullyQualifiedTypeName name="com.fresh.tree.Tree"/>
+<fullyQualifiedTypeName name="com.tests.tree.HuffmanTeset"/>
+<fullyQualifiedTypeName name="com.fresh.tree.HuffmanCode"/>
 </qualifiedTypeNameHistroy>

@@ -1,47 +1,11 @@
 package com.fresh.tree;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
-public class HuffmanTree<T extends Comparable<T> > extends Tree<T>
+public class HuffmanTree<T extends Comparable<T>> extends Tree<T>
 {
 	public BinaryNode<T> root;
-	public HuffmanTree(Byte[] bytes)
-	{
-		constructTree(bytes);
-	}
-	
-	private void constructTree(Byte[] bytes)
-	{
-		Map<Byte, Integer> total = new HashMap<Byte, Integer>();
-		
-		for(int i = 0; i < bytes.length; i++)
-		{
-			int count = 0;
-			for(int c = 0; c < bytes.length; c++)
-			{
-				if(bytes[i] == bytes[c])
-				{
-					count++;
-				}
-			}
-			int value = 0;
-			Integer intValue = total.get(bytes[i]);
-			if(intValue != null)
-			{
-				value = intValue.intValue();
-			}
-			total.put(bytes[i], count + value);
-		}
-		int keyCount = total.keySet().size();
-		for(int k = 0; k < keyCount; k++)
-		{
-			
-			
-		}
-	}
 	
 	public boolean insert(T data)
 	{

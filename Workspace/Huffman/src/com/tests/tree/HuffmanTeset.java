@@ -13,9 +13,7 @@ public class HuffmanTeset
 	@Test
 	public void test()
 	{
-		Byte[] bytes = new Byte[1];
-		bytes[0] = 0;
-		HuffmanTree<Integer> tree = new HuffmanTree<Integer>(bytes);
+		HuffmanTree<Integer> tree = new HuffmanTree<Integer>();
 		tree.insert(3);
 		System.out.println("Root: " + tree.root.data);
 		tree.add(1);
