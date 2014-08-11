@@ -37,4 +37,10 @@ public class BinaryNode<T extends Comparable<T> >
 	{
 		return parent;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return data.toString();
+	}
 }
