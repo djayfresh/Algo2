@@ -21,7 +21,7 @@ public class AVLTree<T extends Comparable<T>> extends Tree<T>
 	@Override
 	public boolean insert(T data)
 	{
-		return false;
+		return insert(root, null, data);
 	}
 
 	private boolean insert(BinaryNode<T> node, BinaryNode<T> parent, T data)

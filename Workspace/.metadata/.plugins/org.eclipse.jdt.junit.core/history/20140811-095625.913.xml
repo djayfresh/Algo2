@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="HuffmanTeset" project="Huffman" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="com.tests.tree.HuffmanTeset" time="0.001">
-    <testcase name="byteHuffman" classname="com.tests.tree.HuffmanTeset" time="0.001"/>
-  </testsuite>
-</testrun>

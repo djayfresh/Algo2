@@ -3,6 +3,7 @@ package com.fresh.tree;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import edu.neumont.io.Bits;
 
 public class HuffmanByte
 {
@@ -42,18 +43,18 @@ public class HuffmanByte
 			byteCount[bytes[i]] += 1;
 		}
 		PriorityQueue<BinaryNode<HuffmanCode<Integer>>> que = new PriorityQueue<BinaryNode<HuffmanCode<Integer>>>(
-					new Comparator<BinaryNode<HuffmanCode<Integer>>>()
-					{
+				new Comparator<BinaryNode<HuffmanCode<Integer>>>()
+				{
 
-						@Override
-						public int compare(
-								BinaryNode<HuffmanCode<Integer>> arg0,
-								BinaryNode<HuffmanCode<Integer>> arg1)
-						{
-							return arg0.data.data.compareTo(arg1.data.data);
-						}
+					@Override
+					public int compare(
+							BinaryNode<HuffmanCode<Integer>> arg0,
+							BinaryNode<HuffmanCode<Integer>> arg1)
+					{
+						return arg0.data.data.compareTo(arg1.data.data);
 					}
-				);
+				}
+			);
 		
 		for(int c = 0; c < 256; c++)
 		{
@@ -78,5 +79,65 @@ public class HuffmanByte
 			}
 			parent.data.data = frequancy;
 		}
+	}
+	
+	public byte toByte(Bits bits)
+	{
+		byte b = -1;
+		BinaryNode<HuffmanCode<Integer>> current = root;
+		for(int i = 0; i < bits.size(); i++)
+		{
+			if(bits.get(i))
+			{
+				current = current.right;
+			}
+			else
+			{
+				current = current.left;
+			}
+		}
+		if(current.data != null)
+		{
+			b = current.data.id;
+		}
+		return b;
+	}
+	
+	public void fromByte(byte b, Bits bits)
+	{
+		Bits path = new Bits();
+		if(foundByte(b, root, path))
+		{
+			bits = path;
+		}
+	}
+	
+	private boolean foundByte(byte b, BinaryNode<HuffmanCode<Integer>> current, Bits path)
+	{
+		if(current != null)
+		{
+			if(current.data.id == b)
+			{
+				return true;
+			}
+			else
+			{
+				if(foundByte(b, current.left, path))
+				{
+					path.add(false);
+					return true;
+				}
+				else if(foundByte(b, current.right, path))
+				{
+					path.add(true);
+					return true;
+				}
+				else
+				{
+					path.clear();
+				}
+			}
+		}
+		return false;
 	}
 }
