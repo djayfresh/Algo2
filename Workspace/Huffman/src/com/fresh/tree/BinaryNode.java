@@ -43,4 +43,9 @@ public class BinaryNode<T extends Comparable<T> >
 	{
 		return data.toString();
 	}
+
+	public boolean isLeaf()
+	{
+		return right == null && left == null;
+	}
 }

@@ -1,96 +1,158 @@
 package com.fresh.tree;
 
-import java.util.List;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
+import edu.neumont.io.Bits;
 
-public class HuffmanTree<T extends Comparable<T>>
+public class HuffmanTree
 {
-	public BinaryNode<T> root;
-	
-	public boolean insert(T data)
+	public BinaryNode<HuffmanCode<Integer>> root;
+	private Bits[] keys = new Bits[256];
+
+	public HuffmanTree(byte[] bytes)
 	{
-		return insert(root, null, data);
-	}
-	
-	private boolean insert(BinaryNode<T> node, BinaryNode<T> parent, T data)
-	{
-		return false;
+		constructTree(frequancyCount(bytes));
 	}
 
-	public int height()
+	public void printBytes(byte[] bytes)
 	{
-		return height(root);
-	}
-	
-	private int height(BinaryNode<T> node)
-	{
-		if(node == null)
-			return 0;
-		else
+		int[] byteCount = frequancyCount(bytes);
+		String byteCode = "Byte: | ";
+		String byteFrequancey = "Freq: | ";
+		for (int i = 0; i < byteCount.length; i++)
 		{
-			return 1 + Math.max(height(node.left), height(node.right));
-		}
-	}
-
-	public int levels()
-	{
-		return height() - 1;
-	}
-
-	public void clear()
-	{
-		root = null;
-	}
-
-	public boolean contains(T obj)
-	{
-		return false;
-	}
-
-	public List<T> preorder()
-	{
-		return null;
-	}
-
-	public List<T> postorder()
-	{
-		return null;
-	}
-
-	public List<T> inorder()
-	{
-		return null;
-	}
-
-	public boolean add(T left, T right)
-	{
-		if(root == null)
-		{
-			root = new BinaryNode<T>(left, null);
-			root.setLeft(new BinaryNode<T>(left, root));
-			if(right != null)
+			if (byteCount[i] > 0)
 			{
-				root.setRight(new BinaryNode<T>(right, root));
+				byteCode += i-128 + " | ";
+				byteFrequancey += byteCount[i] + " | ";
 			}
 		}
-		else if(root.right == null)
-		{
-			root.setRight(new BinaryNode<T>(left, null));
-		}
-		else
-		{
-			BinaryNode<T> tmp = new BinaryNode<T>(left, null);
-			tmp.setLeft(root);
-			BinaryNode<T> tmpr = new BinaryNode<T>(left,null);
-			if(right != null)
-			{
-				tmpr.setLeft(new BinaryNode<T>(left, tmp));
-				tmpr.setRight(new BinaryNode<T>(right, tmp));
-			}
-			tmp.setRight(tmpr);
-			root = tmp;
-		}
-		
-		return true;
+		System.out.println(byteCode);
+		System.out.println(byteFrequancey);
 	}
+	public int[] frequancyCount(byte[] bytes)
+	{
+		int[] byteCount = new int[256];
+		for (int i = 0; i < bytes.length; i++)
+		{
+			byteCount[bytes[i]+128] += 1;
+		}
+		return byteCount;
+	}
+	public void constructTree(int[] byteCount)
+	{
+		PriorityQueue<BinaryNode<HuffmanCode<Integer>>> que = new PriorityQueue<BinaryNode<HuffmanCode<Integer>>>(
+				new Comparator<BinaryNode<HuffmanCode<Integer>>>()
+				{
+					@Override
+					public int compare(BinaryNode<HuffmanCode<Integer>> arg0,
+							BinaryNode<HuffmanCode<Integer>> arg1)
+					{
+						return arg0.data.data.compareTo(arg1.data.data);
+					}
+				});
+
+		for (int c = 0; c < byteCount.length; c++)
+		{
+			if (byteCount[c] > 0)
+			{
+				que.add(new BinaryNode<HuffmanCode<Integer>>(
+						new HuffmanCode<Integer>(byteCount[c], (byte) (c-128)), null));
+			}
+		}
+		while (!que.isEmpty())
+		{
+			BinaryNode<HuffmanCode<Integer>> left = que.poll();
+			BinaryNode<HuffmanCode<Integer>> right = que.poll();
+			int frequancy = left.data.data;
+			BinaryNode<HuffmanCode<Integer>> parent = new BinaryNode<HuffmanCode<Integer>>(
+					new HuffmanCode<Integer>(frequancy, (byte) left.data.id),
+					null);
+			left.parent = parent;
+			parent.setLeft(left);
+			parent.setRight(right);
+			if (right != null)
+			{
+				right.parent = parent;
+				frequancy += right.data.data;
+				que.add(parent);
+				root = parent;
+			}
+			parent.data.data = frequancy;
+		}
+		constructKey(root.left, new Bits(), true);
+		constructKey(root.right, new Bits(), false);
+	}
+
+	private void constructKey(BinaryNode<HuffmanCode<Integer>> current,
+			Bits path, boolean wentLeft)
+	{
+		if (current != null)
+		{
+			path.add(!wentLeft);
+			if (current.isLeaf())
+			{
+				keys[current.data.id+128] = path;
+			}
+			else
+			{
+				// LEFT
+				Bits leftBits = new Bits();
+				leftBits.addAll(path);
+				constructKey(current.left, leftBits, true);
+
+				// RIGHT
+				Bits rightBits = new Bits();
+				rightBits.addAll(path);
+				constructKey(current.right, rightBits, false);
+			}
+		}
+	}
+
+	/**
+	 * reads the next byte from a queue of bits by traversing the Huffman tree
+	 * 
+	 * @param bits
+	 *            - message, to modify pull bits off as used till leaf
+	 * @return byte - leaf/data
+	 */
+	public byte toByte(Bits bits)
+	{
+		byte b = -1;
+		BinaryNode<HuffmanCode<Integer>> current = root;
+		for (int i = 0; i < bits.size(); i++)
+		{
+			if (bits.get(i))
+			{
+				current = current.right;
+			}
+			else
+			{
+				current = current.left;
+			}
+			if (current.isLeaf())
+			{
+				b = current.data.id;
+				break;
+			}
+		}
+		return b;
+	}
+
+	/**
+	 * writes the bits indicated by the Huffman tree for the given byte
+	 * 
+	 * @param b
+	 *            - byte
+	 * @param bits
+	 *            - writing to bits as the steps to bits
+	 */
+	public void fromByte(byte b, Bits bits)
+	{
+		bits.addAll(keys[b+128]);
+	}
+	
+	
+
 }

@@ -10,4 +10,5 @@
 <fullyQualifiedTypeName name="java.util.PriorityQueue"/>
 <fullyQualifiedTypeName name="com.fresh.tree.HuffmanByte"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="edu.neumont.io.Bits"/>
 </qualifiedTypeNameHistroy>
