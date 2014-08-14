@@ -24,7 +24,23 @@ public class HuffmanTree
 		{
 			if (byteCount[i] > 0)
 			{
-				byteCode += i-128 + " | ";
+				byteCode += (i-128) + " | ";
+				byteFrequancey += byteCount[i] + " | ";
+			}
+		}
+		System.out.println(byteCode);
+		System.out.println(byteFrequancey);
+	}
+	
+	public void printBytes(int[] byteCount)
+	{
+		String byteCode = "Byte: | ";
+		String byteFrequancey = "Freq: | ";
+		for (int i = 0; i < byteCount.length; i++)
+		{
+			if (byteCount[i] > 0)
+			{
+				byteCode += (i-128) + " | ";
 				byteFrequancey += byteCount[i] + " | ";
 			}
 		}
@@ -81,8 +97,11 @@ public class HuffmanTree
 			}
 			parent.data.data = frequancy;
 		}
-		constructKey(root.left, new Bits(), true);
-		constructKey(root.right, new Bits(), false);
+		if(root != null)
+		{
+			constructKey(root.left, new Bits(), true);
+			constructKey(root.right, new Bits(), false);
+		}
 	}
 
 	private void constructKey(BinaryNode<HuffmanCode<Integer>> current,
@@ -93,7 +112,9 @@ public class HuffmanTree
 			path.add(!wentLeft);
 			if (current.isLeaf())
 			{
-				keys[current.data.id+128] = path;
+				System.out.println("Code: byte " + current.data.id + " key: " + toBitString(path));
+				keys[current.data.id+128] = new Bits();
+				keys[current.data.id+128].addAll(path);
 			}
 			else
 			{
@@ -119,11 +140,21 @@ public class HuffmanTree
 	 */
 	public byte toByte(Bits bits)
 	{
+		return toByte(root, bits);
+	}
+	
+	private byte sometihing(Bits bits)
+	{
 		byte b = -1;
 		BinaryNode<HuffmanCode<Integer>> current = root;
 		for (int i = 0; i < bits.size(); i++)
 		{
-			if (bits.get(i))
+			if (current.isLeaf())
+			{
+				b = current.data.id;
+				break;
+			}
+			if (bits.pop())
 			{
 				current = current.right;
 			}
@@ -131,13 +162,22 @@ public class HuffmanTree
 			{
 				current = current.left;
 			}
-			if (current.isLeaf())
-			{
-				b = current.data.id;
-				break;
-			}
 		}
 		return b;
+	}
+	
+	private byte toByte(BinaryNode<HuffmanCode<Integer>> current, Bits bits)
+	{
+		if(current.isLeaf())
+			return current.data.id;
+		if(bits.pop())
+		{
+			return toByte(current.right, bits);
+		}
+		else
+		{
+			return toByte(current.left, bits);
+		}
 	}
 
 	/**
@@ -154,5 +194,13 @@ public class HuffmanTree
 	}
 	
 	
-
+	public String toBitString(Bits bits)
+	{
+		String message ="";
+		for(int m = 0; m < bits.size(); m++)
+		{
+			message += bits.get(m) ? '1' : '0';
+		}
+		return message;
+	}
 }

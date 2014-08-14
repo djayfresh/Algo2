@@ -10,6 +10,17 @@ public class HuffmanCompressor
 {
 	public byte[] compress(HuffmanTree tree, byte[] b)
 	{
+		String bits = toBitString(tree, b);
+		System.out.println("Bits-No Padding: " + bits);
+		for(int i = bits.length(); (i%8) != 0; i++)
+		{
+			bits += '0';
+		}
+		System.out.println("Bits-With Padding: " + bits);
+		return new BigInteger(bits, 2).toByteArray();
+	}
+	public String toBitString(HuffmanTree tree, byte[] b)
+	{
 		String bits = "";
 		for(int i = 0; i < b.length; i++)
 		{
@@ -20,12 +31,7 @@ public class HuffmanCompressor
 				bits += thisMessage.get(m) ? '1' : '0';
 			}
 		}
-		for(int i = bits.length(); (i%8) != 0; i++)
-		{
-			bits += '0';
-		}
-		
-		return new BigInteger(bits, 2).toByteArray();
+		return bits;
 	}
 	public byte[] decompress(HuffmanTree tree, int uncompressedLength, byte[] byteArray)
 	{
@@ -33,12 +39,13 @@ public class HuffmanCompressor
 		Bits bits = new Bits();
 		for(int i = 0; i < byteArray.length; i++)
 		{
-			for(int b = 0; b < 8; b++)
+			byte byt = byteArray[i];
+			for(int b = 7; b >= 0; b--)
 			{
-				byte byt = byteArray[i];
 				bits.add(isSet(byt,b));
 			}
 		}
+		System.out.println("Decompressed bits: " + tree.toBitString(bits));
 		for(int i = 0; i < bytes.length; i++)
 		{
 			bytes[i] = tree.toByte(bits);
