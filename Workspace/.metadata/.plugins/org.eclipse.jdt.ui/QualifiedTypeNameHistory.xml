@@ -2,13 +2,25 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="com.fresh.tree.BinaryNode"/>
-<fullyQualifiedTypeName name="com.fresh.tree.HuffmanTree"/>
 <fullyQualifiedTypeName name="com.fresh.tree.Tree"/>
-<fullyQualifiedTypeName name="com.tests.tree.HuffmanTeset"/>
 <fullyQualifiedTypeName name="com.fresh.tree.HuffmanCode"/>
 <fullyQualifiedTypeName name="java.util.PriorityQueue"/>
 <fullyQualifiedTypeName name="com.fresh.tree.HuffmanByte"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="edu.neumont.io.Bits"/>
+<fullyQualifiedTypeName name="com.tests.tree.HuffmanTeset"/>
+<fullyQualifiedTypeName name="com.fresh.compressor.HuffmanCompressor"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageWriter"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="com.fresh.tree.HuffmanTree"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="com.fresh.tree.Heap"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="com.fresh.tree.BinaryNode"/>
+<fullyQualifiedTypeName name="com.fresh.tree.AVLTree"/>
 </qualifiedTypeNameHistroy>

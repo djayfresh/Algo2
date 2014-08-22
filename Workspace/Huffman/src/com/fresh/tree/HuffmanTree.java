@@ -15,6 +15,10 @@ public class HuffmanTree
 		constructTree(frequancyCount(bytes));
 	}
 
+	public HuffmanTree(int[] fc) {
+		constructTree(fc);
+	}
+	
 	public void printBytes(byte[] bytes)
 	{
 		int[] byteCount = frequancyCount(bytes);
@@ -112,7 +116,7 @@ public class HuffmanTree
 			path.add(!wentLeft);
 			if (current.isLeaf())
 			{
-				System.out.println("Code: byte " + current.data.id + " key: " + toBitString(path));
+				//System.out.println("Code: byte " + current.data.id + " key: " + toBitString(path));
 				keys[current.data.id+128] = new Bits();
 				keys[current.data.id+128].addAll(path);
 			}

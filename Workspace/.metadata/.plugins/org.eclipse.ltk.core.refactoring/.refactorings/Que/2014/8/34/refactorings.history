@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 2 elements to &apos;Que/src/com.fresh.que&apos;&#x0D;&#x0A;- Original project: &apos;Que&apos;&#x0D;&#x0A;- Destination element: &apos;Que/src/com.fresh.que&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     com.fresh.tree.PriorityQueAVL.java&#x0D;&#x0A;     com.fresh.tree.PriorityQue.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="/src&lt;com.fresh.que" element1="/src&lt;com.fresh.tree{PriorityQueAVL.java" element2="/src&lt;com.fresh.tree{PriorityQue.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1408471264068" units="2" version="1.0"/>
+</session>
