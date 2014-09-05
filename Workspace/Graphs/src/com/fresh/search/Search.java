@@ -1,42 +1,61 @@
 package com.fresh.search;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-import com.fresh.graph.ListGraph;
+import com.fresh.graph.Graph;
 
 public class Search
 {
-	public static int[] depthFirst(ListGraph g)
+	private static int UNVISITED = 0;
+	private static int VISITED = 1;
+
+	static void graphDFSTraverse(Graph G)
 	{
-		Stack<Integer> path = new Stack<Integer>();
-		ArrayList<Integer> ls = new ArrayList<Integer>();
-		for(int i = 0; i < g.vCount(); i++)
-		{
-			path.push(i);
-			dFVert(i, g, path);
-		}
-		return null;
+		for (int v = 0; v < G.n(); v++)
+			G.setMark(v, UNVISITED); // Initialize
+		for (int v = 0; v < G.n(); v++)
+			if (G.getMark(v) == UNVISITED)
+				DFS(G, v);
 	}
-	private static int[] dFVert(int index, ListGraph g, Stack<Integer> stack)
+
+	/** Depth first search */
+	static void DFS(Graph G, int v)
 	{
-		if(g.getMark(stack.peek()) == ListGraph.VISITED)
-		{
-			//stack.pop()
-			//add to list
-		}
-		else
-		{
-			int thisVert = stack.peek();
-			stack.push(g.first(thisVert));
-			g.setMark(thisVert, ListGraph.VISITED);
-		}
-		
-		return null;
+		// PreVisit(G, v); // Take appropriate action
+		G.setMark(v, VISITED);
+		for (int w = G.first(v); w < G.n(); w = G.next(v, w))
+			if (G.getMark(w) == UNVISITED)
+				DFS(G, w);
+		// PostVisit(G, v); // Take appropriate action }
 	}
-	public static int[] breathFirst(ListGraph g)
+
+	static void graphBFSTraverse(Graph G)
 	{
-		
-		return null;
+		for (int v = 0; v < G.n(); v++)
+			G.setMark(v, UNVISITED); // Initialize
+		for (int v = 0; v < G.n(); v++)
+			if (G.getMark(v) == UNVISITED)
+				BFS(G, v);
+	}
+
+	/** Breadth first (queue-based) search */
+	static void BFS(Graph G, int start)
+	{
+		Queue<Integer> Q = new PriorityQueue<Integer>(G.n());
+		Q.add(start);
+		G.setMark(start, VISITED);
+		while (Q.size() > 0)
+		{
+			int v = Q.poll();
+			//PreVisit(G, v); // Take appropriate action
+			for (int w = G.first(v); w < G.n(); w = G.next(v, w))
+				if (G.getMark(w) == UNVISITED)
+				{
+					G.setMark(w, VISITED);
+					Q.add(w);
+				}
+			//PostVisit(G, v); // Take appropriate action
+		}
 	}
 }
